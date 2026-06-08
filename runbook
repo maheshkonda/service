@@ -1,0 +1,290 @@
+BUSINESS CONTINUITY PLAN (BCP)
+Service Bus Disaster Recovery and Failover Baseline
+Resource Type: Azure Service Bus
+Owner / SME: Prashant Chawla / Kate
+Document Status: Draft – Baseline
+Version: 1.0
+Last Updated: February 2026
+________________________________________
+1.	PURPOSE
+________________________________________
+This document defines the Disaster Recovery (DR) and Business Continuity Plan (BCP) strategy for Azure Service Bus resources supporting the TTO platform.
+The objective is to ensure Service Bus messaging infrastructure can be recovered within acceptable recovery objectives during a regional outage while minimizing operational impact to dependent applications and business processes.
+________________________________________
+2.	CURRENT STATE ASSESSMENT
+________________________________________
+The Service Bus environment was reviewed within subscription:
+US-AZSUB-AME-TAX-SDT-PRD
+Primary Region – East US 2
+Namespace: azuse2shdprdsbns01
+• Contains the complete TTO workload.
+• 30 queues supporting document processing workflows.
+• 29 topics supporting SDK event processing.
+• Premium SKU.
+• Zone Redundant.
+• No active messages currently in flight.
+Namespace: azuse2shdprdsbns02
+• Premium SKU.
+• Zone Redundant.
+• No queues or topics configured.
+• Purpose currently unknown and requires clarification.
+Secondary Region (BCP) – Central US
+Namespace: azuscshdbcpsbns01
+• Contains three queues created during previous testing activities.
+• No topics configured.
+• Premium SKU.
+• Zone Redundant.
+Namespace: azuscshdbcpsbns02
+• Empty namespace.
+• Premium SKU.
+• Zone Redundant.
+Current Findings
+• No Geo-DR alias configuration exists.
+• No namespace pairing exists.
+• Metadata synchronization is not configured.
+• BCP namespaces are operating as standalone resources.
+• Configuration changes in primary are not replicated to BCP.
+________________________________________
+3.	RECOMMENDED DR STRATEGY
+________________________________________
+Recommended Solution:
+Azure Service Bus Geo-Disaster Recovery (Geo-DR)
+Geo-DR provides native metadata replication between paired Premium namespaces and significantly reduces operational overhead associated with maintaining duplicate Service Bus configurations.
+Benefits
+• Automatic replication of queues.
+• Automatic replication of topics.
+• Automatic replication of subscriptions.
+• Replication of authorization rules.
+• Replication of namespace metadata.
+• Consistent DR configuration.
+• Reduced operational effort.
+• Simplified failover process.
+Geo-DR does not replicate:
+• Active messages.
+• Scheduled messages.
+• Dead-letter messages.
+• In-flight transactions.
+________________________________________
+4.	MESSAGE REPLICATION CONSIDERATIONS
+________________________________________
+Message replication is not recommended for this workload.
+Reasoning
+The TTO platform processes documents stored within Azure Blob Storage utilizing geo-redundant storage capabilities.
+Service Bus messages act primarily as processing instructions and do not represent the source system of record.
+In the event of a regional outage:
+• Documents remain available within secondary storage.
+• Processing can be replayed.
+• Applications can regenerate messages if required.
+Implementing message replication would introduce:
+• Additional operational complexity.
+• Duplicate message handling requirements.
+• Message ordering challenges.
+• Increased infrastructure cost.
+• Additional support burden.
+Based on the current architecture, metadata replication alone is considered sufficient.
+________________________________________
+5.	PROPOSED GEO-DR PAIRING
+________________________________________
+Primary Namespace:
+azuse2shdprdsbns01
+Secondary Namespace:
+azuscshdbcpsbns01
+Geo-DR Alias:
+shdprdsbns01-dr-alias
+________________________________________
+Primary Namespace:
+azuse2shdprdsbns02
+Secondary Namespace:
+azuscshdbcpsbns02
+Geo-DR Alias:
+shdprdsbns02-dr-alias
+
+________________________________________
+6.	BCP FAILOVER REQUIREMENTS
+________________________________________
+1.	Azure Service Bus namespace deployed in DR region.
+2.	Geo-DR pairing configured between primary and secondary namespaces.
+3.	Queue definitions replicated.
+4.	Topic definitions replicated.
+5.	Subscription definitions replicated.
+6.	Authorization rules replicated.
+7.	Shared access policies validated.
+8.	Private endpoints configured.
+9.	Network access rules validated.
+10.	Monitoring enabled in DR region.
+11.	Capacity sizing equivalent to production namespace.
+12.	Application teams configured to use Geo-DR alias endpoint.
+13.	Key Vault integration available for connection management.
+14.	Runbooks documented and tested.
+________________________________________
+7.	FAILOVER ACTIONS (PRIMARY → DR REGION)
+________________________________________
+Step 1
+Initiate Geo-DR failover using Azure Portal, Azure CLI, or approved operational runbook.
+Step 2
+Validate alias promotion completed successfully.
+Step 3
+Confirm applications are connecting through Geo-DR alias endpoint.
+Step 4
+Verify queues, topics, subscriptions, and authorization rules are available.
+Step 5
+Validate producers can publish messages successfully.
+Step 6
+Validate consumers can receive and process messages.
+Step 7
+Review dead-letter queues.
+Where applicable:
+• Process pending dead-letter messages.
+• Archive messages if required.
+• Document unresolved failures.
+Step 8
+Validate namespace health.
+Review:
+• Active message count
+• Queue depth
+• Dead-letter queues
+• Throughput metrics
+• Consumer activity
+Step 9
+Validate dependent applications.
+Examples:
+• Azure Functions
+• Logic Apps
+• Event Grid
+• App Services
+• APIs
+• Worker Services
+________________________________________
+8.	FAILOVER VALIDATION CHECKLIST
+________________________________________
+Application Validation
+□ Applications connected successfully
+□ Geo-DR alias functioning
+□ No hardcoded namespace references
+Messaging Validation
+□ Queues available
+□ Topics available
+□ Subscriptions available
+□ Filters functioning
+□ Producers operational
+□ Consumers operational
+Security Validation
+□ RBAC assignments valid
+□ Shared access policies available
+□ Key Vault access validated
+□ Managed identities functioning
+Network Validation
+□ Private endpoints operational
+□ DNS resolution successful
+□ Firewall rules validated
+□ VNET integration validated
+Monitoring Validation
+□ Azure Monitor operational
+□ Log Analytics receiving logs
+□ Alerts functioning correctly
+□ Metrics visible for DR namespace
+________________________________________
+9.	DEPENDENCIES
+________________________________________
+Infrastructure
+• Service Bus Premium SKU
+• Geo-DR Pairing
+• Azure Key Vault
+• Private Endpoints
+• VNET Integration
+• DNS Configuration
+Monitoring
+• Azure Monitor
+• Log Analytics
+• Application Insights (where applicable)
+Dependent Services
+• Azure Functions
+• Logic Apps
+• Event Grid
+• API Services
+• Worker Services
+Application Dependencies
+• Connection strings sourced from Key Vault.
+• Applications support reconnection after failover.
+• Applications use Geo-DR alias endpoint.
+________________________________________
+10.	NETWORK AND SECURITY VALIDATION
+________________________________________
+Identity Controls
+• Validate Azure RBAC assignments.
+• Validate Managed Identity permissions.
+• Validate Service Bus authorization rules.
+• Validate Key Vault access policies.
+Network Controls
+• Validate Private Endpoint connectivity.
+• Validate DNS records.
+• Validate NSGs and firewall rules.
+• Validate VNET routing.
+Security Monitoring
+• Review diagnostic logs.
+• Review access logs.
+• Review security alerts.
+• Confirm monitoring integrations remain operational.
+________________________________________
+11.	OPERATIONAL CONSIDERATIONS
+________________________________________
+In-Flight Messages
+Geo-DR replicates metadata only.
+Messages present in the primary namespace at the time of failover are not replicated to the DR namespace.
+Applications should implement retry and replay mechanisms where message loss cannot be tolerated.
+Dead-Letter Queues
+Dead-letter queues should be reviewed before failover and after recovery.
+Any required replay activity should be coordinated with application owners.
+Message Ordering
+Message ordering may be temporarily impacted during failover activities.
+Applications requiring strict ordering should validate processing after failover.
+Capacity Planning
+DR namespaces should maintain equivalent Premium Messaging Unit capacity to production namespaces.
+________________________________________
+12.	ESTIMATED DOWNTIME
+________________________________________
+Expected Recovery Window
+Low to Moderate
+10–25 Minutes
+Estimated Timeline
+Geo-DR Failover Initiation:
+2–5 Minutes
+Alias Propagation:
+5–10 Minutes
+Application Reconnection:
+2–5 Minutes
+Validation Activities:
+5–10 Minutes
+Recovery Considerations
+• Metadata only is replicated.
+• Active messages are not replicated.
+• Applications should support retry patterns.
+• Message processing delays may occur during failover.
+• Temporary impact to message ordering may occur.
+________________________________________
+13.	OPEN ITEMS
+________________________________________
+1.	Confirm deletion of existing entities within:
+azuscshdbcpsbns01
+• deloitte.tto.abbyyextractor.flexicapture.jobqueue
+• deloitte.tto.antivirus.blobcreated
+• deloitte.tto.antivirus.blobscancompleted
+2.	Confirm intended purpose of:
+azuse2shdprdsbns02
+3.	Confirm proposed alias naming convention.
+4.	Confirm application teams will adopt Geo-DR alias endpoints.
+5.	Confirm acceptance of potential in-flight message loss during regional outage scenarios.
+________________________________________
+14.	NEXT STEPS
+________________________________________
+1.	Remove existing test entities from BCP namespace.
+2.	Validate DR design in UAT environment.
+3.	Configure Geo-DR pairing.
+4.	Update application configurations to use alias endpoints.
+5.	Update operational runbooks.
+6.	Update BCP documentation.
+7.	Execute DR testing.
+8.	Review results and lessons learned.
+9.	Obtain stakeholder sign-off.
+10.	Schedule annual DR validation exercises.
+
