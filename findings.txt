@@ -1,0 +1,124 @@
+We ran a full audit of all Service Bus namespaces under subscription 
+US-AZSUB-AME-TAX-SDT-PRD. Here is the current state:
+
+Primary Region - East US 2:
+- azuse2shdprdsbns01 - fully populated
+    - 30 queues covering all TTO services: abbyyextractor, antivirus,
+      flows orchestrator, taxdocumentsanalyzer, pdf splitting, 
+      footnoteextractor, outputtransformer, preprocessor and more
+    - 29 topics covering all SDK events across the same services
+    - All entities Active, 0 messages in flight
+    - Zone Redundant: Yes, Premium tier
+- azuse2shdprdsbns02 - exists but completely empty
+    - No queues, no topics
+    - Zone Redundant: Yes, Premium tier
+    - Reason for being empty is unknown - flagged as open question
+
+BCP Region - Central US:
+- azuscshdbcpsbns01 - partially populated
+    - Only 3 queues present, appear to be from initial testing
+    - No topics at all
+    - Zone Redundant: Yes, Premium tier
+- azuscshdbcpsbns02 - completely empty
+    - No queues, no topics
+    - Zone Redundant: Yes, Premium tier
+
+Current sync status:
+- No Geo-DR alias configured on any of the 4 namespaces
+- No pairing of any kind between primary and BCP
+- BCP namespaces are completely disconnected from primary today
+
+GOOD NEWS
+=========
+All 4 namespaces are already Premium tier and Zone Redundant. This is 
+the prerequisite for Geo-DR alias pairing. No SKU upgrade needed. 
+We can proceed immediately once open items are resolved.
+
+OUR RECOMMENDATION
+==================
+Geo-DR Alias Pairing - Native Azure Premium feature
+
+This directly addresses both contexts you raised in the meeting:
+
+1. Configuration sync:
+   Geo-DR alias pairing handles this natively without any pipeline 
+   involvement. Once paired, all entity metadata - queues, topics, 
+   subscriptions, authorization rules, filters - replicates 
+   automatically and continuously from primary to BCP. Any new queue 
+   or topic added to primary in the future will automatically appear 
+   in BCP. No manual intervention needed.
+
+2. Data sync (messages):
+   The TTO platform is a document processing workload. Every tax 
+   document uploaded by users is stored in Azure Blob Storage which 
+   already has geo-redundant replication enabled - meaning the actual 
+   source files exist in both East US 2 and Central US at all times.
+
+   The Service Bus messages are not the documents themselves - they 
+   are processing instructions like "go process document X" or 
+   "document X scan is complete, proceed to extraction". If East US 2 
+   goes down and some of these in-flight instructions are lost, the 
+   source documents are still safely in BCP blob storage and can be 
+   reprocessed from scratch.
+
+   We therefore do not recommend building a message replication layer 
+   on top of the alias pairing for this workload. Message replication 
+   would require every microservice across the platform to be rebuilt 
+   to handle receiving duplicate messages, introduces message ordering 
+   risks in the processing pipeline, adds 24/7 operational overhead, 
+   and all of this for an event that may never happen in the lifetime 
+   of the platform. The cost does not justify the benefit here.
+
+Pairing plan:
+azuse2shdprdsbns01 --> azuscshdbcpsbns01  alias: shdprdsbns01-dr-alias
+azuse2shdprdsbns02 --> azuscshdbcpsbns02  alias: shdprdsbns02-dr-alias
+
+What failover looks like:
+When East US 2 goes down, one CLI command promotes the BCP namespace 
+to primary under the same alias. Applications reconnect automatically 
+without any connection string changes because they were always talking 
+to the alias, not the direct namespace endpoint. This fits cleanly 
+into Stage 7 of the existing BCP failover pipeline with the manual 
+approval gate already in place.
+
+BLOCKERS BEFORE WE CAN EXECUTE
+================================
+
+1. 3 stray entities in azuscshdbcpsbns01 must be deleted first.
+   Geo-DR alias pairing requires the secondary namespace to be 
+   completely empty before pairing can be created. These 3 entities 
+   appear to be left over from initial testing but we need confirmation 
+   before touching them:
+   - deloitte.tto.abbyyextractor.flexicapture.jobqueue
+   - deloitte.tto.antivirus.blobcreated
+   - deloitte.tto.antivirus.blobscancompleted
+
+2. azuse2shdprdsbns02 is completely empty.
+   We want to understand what this namespace is intended for before 
+   we pair it with azuscshdbcpsbns02. If it is reserved for a future 
+   workload we still want to pair it now so it is ready. But we want 
+   your confirmation on this before proceeding.
+
+OPEN ITEMS NEEDING YOUR INPUT
+==============================
+1. Are the 3 stray BCP entities safe to delete?
+2. What is azuse2shdprdsbns02 used for?
+3. Confirm the alias naming convention is acceptable
+4. Confirm app teams will be looped in to update connection strings 
+   to use alias endpoints post-pairing
+5. Confirm message loss tolerance is acceptable for BCP scenario - 
+   meaning losing in-flight processing instructions during an actual 
+   East US 2 outage is acceptable given documents can be replayed
+
+WHAT HAPPENS AFTER YOUR SIGN OFF
+==================================
+1. Delete 3 stray BCP entities
+2. Execute pairing on UAT namespaces first to validate the process
+3. Execute pairing on PRD
+4. App teams update connection strings to alias endpoints
+5. Wire failover commands into BCP pipeline Stage 7
+6. Document the failover runbook
+7. Schedule a DR drill
+
+Implementation commands are fully written and ready to run. 
+Attaching the full findings report for reference.
