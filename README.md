@@ -1,4 +1,4 @@
-My Recommendation: Option 2 with a Twist
+My Recommendation: Option 2 
 Why Not Option 1 (Full Premium Both Sides)
 Paying ~$1,336/month for a BCP namespace that sits idle 99% of the time is hard to justify to a client. Deloitte bills clients for infrastructure costs and an idle Premium Service Bus is a very visible line item that will get questioned in every quarterly review.
 
