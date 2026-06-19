@@ -131,7 +131,7 @@ Three files added to repo on branch `75802-BCP-Servicebus`:
 | Create `privatelink.servicebus.windows.net` DNS zone |  Pending  |
 | Link DNS zone to BCP VNet (`AZ-CUS-TAX-BCP-SDT-VNET-01`) |Pending  |
 | Create `APPROVE_SERVICEBUS` GitHub environment with approvers |  Pending  |
-| PR review and approval |  | Pending  |
+| PR review and approval | Pending | 
 | Enable Geo-Replication (after DNS ready) | Pending  |
 
 ---
