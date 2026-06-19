@@ -38,8 +38,8 @@ This document covers the investigation, findings, strategy and implementation fo
 | VNet | AZ-EUS2-TAX-PRD-SDT-VNET-01 | AZ-CUS-TAX-BCP-SDT-VNET-01 |
 | Subnet | sdtPRD-subnet | sdtBCP-subnet |
 | VNet RG | AZRG-ALL-ITS-VNET-SYS | AZRG-ALL-ITS-VNET-SYS |
-| Private Endpoint | azuse2shdprdsbns01-pep ✅ | azuscshdbcpsbns01-pep ✅ |
-| DNS Zone | privatelink.servicebus.windows.net | Not created yet ❌ |
+| Private Endpoint | azuse2shdprdsbns01-pep | azuscshdbcpsbns01-pep  |
+| DNS Zone | privatelink.servicebus.windows.net | Not created yet |
 
 ---
 
@@ -57,14 +57,14 @@ This document covers the investigation, findings, strategy and implementation fo
 - Upgrade is actually a namespace recreation — too risky for PRD
 - Would cause downtime and require entity recreation
 
-### Option 3 — Geo-Replication (Metadata + Messages) ✅ Recommended
+### Option 3 — Geo-Replication (Metadata + Messages)  Recommended
 - Newer Azure Premium feature (`GeoDataReplication`)
 - Replicates both entity configuration AND in-flight messages across regions
-- Requires private endpoints on both sides — PRD ✅, BCP ✅
-- Requires `privatelink.servicebus.windows.net` DNS zone linked to BCP VNet — pending ❌
+- Requires private endpoints on both sides — PRD , BCP 
+- Requires `privatelink.servicebus.windows.net` DNS zone linked to BCP VNet — pending 
 - Prashant confirmed this is the required approach
 
-### Option 4 — Custom Config Sync Pipeline ✅ Implemented
+### Option 4 — Custom Config Sync Pipeline  Implemented
 - Follows existing org pattern (KV sync)
 - GitHub Actions workflow — plan/apply with approval gate
 - Syncs queues, topics, subscriptions, authorization rules daily at 2AM
@@ -120,7 +120,7 @@ Three files added to repo on branch `75802-BCP-Servicebus`:
 - Confirmed pre-existing: `azuscshdbcpsbns01-pep`
 - Location: Central US
 - Subnet: `sdtBCP-subnet` (designated PrivateEndpoints subnet)
-- Status: Succeeded / Approved ✅
+- Status: Succeeded / Approved 
 
 ---
 
@@ -128,11 +128,11 @@ Three files added to repo on branch `75802-BCP-Servicebus`:
 
 | Item | Owner | Status |
 |---|---|---|
-| Create `privatelink.servicebus.windows.net` DNS zone | Network team | Pending ❌ |
-| Link DNS zone to BCP VNet (`AZ-CUS-TAX-BCP-SDT-VNET-01`) | Network team | Pending ❌ |
-| Create `APPROVE_SERVICEBUS` GitHub environment with approvers | Repo admin | Pending ❌ |
-| PR review and approval | Prashant | Pending ❌ |
-| Enable Geo-Replication (after DNS ready + Prashant approval) | Satwika | Pending ❌ |
+| Create `privatelink.servicebus.windows.net` DNS zone |  Pending  |
+| Link DNS zone to BCP VNet (`AZ-CUS-TAX-BCP-SDT-VNET-01`) |Pending  |
+| Create `APPROVE_SERVICEBUS` GitHub environment with approvers |  Pending  |
+| PR review and approval |  | Pending  |
+| Enable Geo-Replication (after DNS ready) | Pending  |
 
 ---
 
@@ -164,7 +164,7 @@ Service Bus messages are stored in an internal proprietary format managed entire
 PRD (East US 2)                             BCP (Central US)
 azuse2shdprdsbns01                          azuscshdbcpsbns01
         |                                          |
-azuse2shdprdsbns01-pep ✅          azuscshdbcpsbns01-pep ✅
+azuse2shdprdsbns01-pep           azuscshdbcpsbns01-pep 
         |                                          |
 AZ-EUS2-TAX-PRD-SDT-VNET-01       AZ-CUS-TAX-BCP-SDT-VNET-01
         |                                          |
@@ -180,4 +180,3 @@ AZ-EUS2-TAX-PRD-SDT-VNET-01       AZ-CUS-TAX-BCP-SDT-VNET-01
 - ADO Task: 75802
 - Branch: `75802-BCP-Servicebus`
 - Subscription: `c2501773-e73a-4552-927c-1a61e3370821`
-- KV Sync reference pattern: Serhii Vakulenko
