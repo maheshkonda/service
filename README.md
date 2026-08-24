@@ -1,1 +1,1 @@
-<img width="6972" height="4132" alt="image" src="https://github.com/user-attachments/assets/a51edb46-85dc-44f4-a4aa-9a131dcce769" />
+<img width="2865" height="2176" alt="Untitled Diagram drawio (1)" src="https://github.com/user-attachments/assets/cbf6e33e-b975-4cf6-a585-127d760095b8" />
