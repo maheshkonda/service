@@ -1,0 +1,225 @@
+<mxGraphModel dx="1030" dy="562" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1700" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    <mxCell id="2" parent="1" style="shape=cloud;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#999999;fontFamily=Helvetica;fontSize=11;" value="Internet" vertex="1">
+      <mxGeometry height="50" width="80" x="250" y="40" as="geometry" />
+    </mxCell>
+    <mxCell id="3" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/networking/Front_Doors.svg;fontFamily=Helvetica;fontSize=11;" value="Front Door" vertex="1">
+      <mxGeometry height="60" width="60" x="420" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="4" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/networking/Firewalls.svg;fontFamily=Helvetica;fontSize=11;" value="Akamai Firewall" vertex="1">
+      <mxGeometry height="60" width="60" x="600" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="5" edge="1" parent="1" source="2" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontFamily=Helvetica;fontSize=10;" target="3" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="6" edge="1" parent="1" source="3" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontFamily=Helvetica;fontSize=10;" target="4" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="7" parent="1" style="whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#999999;opacity=100;fontFamily=Helvetica;fontSize=11;align=left;verticalAlign=top;" value="Deloitte Hub" vertex="1">
+      <mxGeometry height="200" width="280" x="900" y="60" as="geometry" />
+    </mxCell>
+    <mxCell id="8" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/networking/Virtual_Networks.svg;fontFamily=Helvetica;fontSize=11;" value="" vertex="1">
+      <mxGeometry height="40" width="40" x="1120" y="65" as="geometry" />
+    </mxCell>
+    <mxCell id="9" edge="1" parent="1" source="4" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontFamily=Helvetica;fontSize=10;" target="7" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="10" parent="1" style="whiteSpace=wrap;html=1;dashed=1;dashPattern=5 5;fillColor=#FFFFFF;strokeColor=#B8B8B8;opacity=100;fontFamily=Helvetica;fontSize=11;align=left;verticalAlign=top;" value="OnPrem" vertex="1">
+      <mxGeometry height="120" width="280" x="200" y="200" as="geometry" />
+    </mxCell>
+    <mxCell id="11" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/identity/Users.svg;fontFamily=Helvetica;fontSize=11;" value="AAD Users" vertex="1">
+      <mxGeometry height="50" width="50" x="230" y="220" as="geometry" />
+    </mxCell>
+    <mxCell id="12" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/networking/Virtual_Network_Gateways.svg;fontFamily=Helvetica;fontSize=11;" value="" vertex="1">
+      <mxGeometry height="40" width="40" x="310" y="225" as="geometry" />
+    </mxCell>
+    <mxCell id="13" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/networking/ExpressRoute_Circuits.svg;fontFamily=Helvetica;fontSize=11;" value="ExpressRoute" vertex="1">
+      <mxGeometry height="60" width="60" x="580" y="210" as="geometry" />
+    </mxCell>
+    <mxCell id="14" edge="1" parent="1" source="10" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontFamily=Helvetica;fontSize=10;" target="13" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="15" edge="1" parent="1" source="13" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontFamily=Helvetica;fontSize=10;" target="7" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="16" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/general/Subscriptions.svg;fontFamily=Helvetica;fontSize=11;" value="Subscriptions" vertex="1">
+      <mxGeometry height="40" width="40" x="40" y="380" as="geometry" />
+    </mxCell>
+    <mxCell id="17" parent="1" style="whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CCCCCC;opacity=100;fontFamily=Helvetica;fontSize=11;align=left;verticalAlign=top;" value="" vertex="1">
+      <mxGeometry height="480" width="310" x="30" y="420" as="geometry" />
+    </mxCell>
+    <mxCell id="18" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/networking/Virtual_Networks.svg;fontFamily=Helvetica;fontSize=11;" value="Intela" vertex="1">
+      <mxGeometry height="40" width="40" x="100" y="430" as="geometry" />
+    </mxCell>
+    <mxCell id="19" parent="1" style="whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#DDDDDD;opacity=100;fontFamily=Helvetica;fontSize=11;align=left;verticalAlign=top;" value="" vertex="1">
+      <mxGeometry height="400" width="250" x="60" y="470" as="geometry" />
+    </mxCell>
+    <mxCell id="20" parent="1" style="text;html=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=11;fontFamily=Helvetica;align=center;verticalAlign=middle;" value="VNET Peering" vertex="1">
+      <mxGeometry height="30" width="120" x="380" y="620" as="geometry" />
+    </mxCell>
+    <mxCell id="21" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/general/Subscriptions.svg;fontFamily=Helvetica;fontSize=11;" value="Subscriptions" vertex="1">
+      <mxGeometry height="40" width="40" x="510" y="380" as="geometry" />
+    </mxCell>
+    <mxCell id="22" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/networking/Virtual_Networks.svg;fontFamily=Helvetica;fontSize=11;" value="Spoke VNet" vertex="1">
+      <mxGeometry height="40" width="40" x="580" y="430" as="geometry" />
+    </mxCell>
+    <mxCell id="23" edge="1" parent="1" source="17" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#666666;fontFamily=Helvetica;fontSize=10;" target="21" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="24" parent="1" style="whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0B0B0;opacity=100;fontFamily=Helvetica;fontSize=11;align=left;verticalAlign=top;" value="" vertex="1">
+      <mxGeometry height="1250" width="1200" x="500" y="420" as="geometry" />
+    </mxCell>
+    <mxCell id="25" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/networking/Network_Security_Groups.svg;fontFamily=Helvetica;fontSize=11;" value="NSG" vertex="1">
+      <mxGeometry height="45" width="45" x="520" y="460" as="geometry" />
+    </mxCell>
+    <mxCell id="26" parent="1" style="whiteSpace=wrap;html=1;fillColor=#F5F9FF;strokeColor=#4A90D9;opacity=100;fontFamily=Helvetica;fontSize=11;align=left;verticalAlign=top;" value="" vertex="1">
+      <mxGeometry height="680" width="900" x="570" y="470" as="geometry" />
+    </mxCell>
+    <mxCell id="27" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/networking/Subnet.svg;fontFamily=Helvetica;fontSize=11;" value="AKS Subnet" vertex="1">
+      <mxGeometry height="35" width="35" x="1380" y="475" as="geometry" />
+    </mxCell>
+    <mxCell id="28" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/containers/Kubernetes_Services.svg;fontFamily=Helvetica;fontSize=11;" value="Kubernetes" vertex="1">
+      <mxGeometry height="50" width="50" x="1400" y="520" as="geometry" />
+    </mxCell>
+    <mxCell id="29" parent="1" style="text;html=1;strokeColor=none;fillColor=none;fontSize=10;fontFamily=Helvetica;align=right;verticalAlign=middle;" value="Logs, Metrics, Traces from AKS Application" vertex="1">
+      <mxGeometry height="20" width="380" x="100" y="560" as="geometry" />
+    </mxCell>
+    <mxCell id="30" parent="1" style="whiteSpace=wrap;html=1;dashed=1;dashPattern=5 5;fillColor=#FFFFFF;strokeColor=#B8B8B8;opacity=100;fontFamily=Helvetica;fontSize=10;align=left;verticalAlign=top;" value="System node pool" vertex="1">
+      <mxGeometry height="120" width="500" x="600" y="510" as="geometry" />
+    </mxCell>
+    <mxCell id="31" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/management_governance/Monitor.svg;fontFamily=Helvetica;fontSize=11;" value="Azure Monitor Agent" vertex="1">
+      <mxGeometry height="45" width="45" x="640" y="540" as="geometry" />
+    </mxCell>
+    <mxCell id="32" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/management_governance/Cost_Management_and_Billing.svg;fontFamily=Helvetica;fontSize=11;" value="Cloudability Agent" vertex="1">
+      <mxGeometry height="45" width="45" x="750" y="540" as="geometry" />
+    </mxCell>
+    <mxCell id="33" parent="1" style="whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B8B8B8;opacity=100;fontFamily=Helvetica;fontSize=10;align=left;verticalAlign=top;" value="User node pool (linux)" vertex="1">
+      <mxGeometry height="470" width="850" x="600" y="660" as="geometry" />
+    </mxCell>
+    <mxCell id="34" parent="1" style="text;html=1;strokeColor=none;fillColor=none;fontSize=10;fontFamily=Helvetica;align=center;verticalAlign=middle;" value="KEDA Operator Pod" vertex="1">
+      <mxGeometry height="20" width="150" x="620" y="680" as="geometry" />
+    </mxCell>
+    <mxCell id="35" parent="1" style="whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;opacity=100;fontFamily=Helvetica;fontSize=10;align=left;verticalAlign=top;" value="ARC Components" vertex="1">
+      <mxGeometry height="380" width="540" x="630" y="720" as="geometry" />
+    </mxCell>
+    <mxCell id="36" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/app_services/App_Services.svg;fontFamily=Helvetica;fontSize=11;" value="Actions Runner controller" vertex="1">
+      <mxGeometry height="45" width="45" x="660" y="760" as="geometry" />
+    </mxCell>
+    <mxCell id="37" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/app_services/App_Services.svg;fontFamily=Helvetica;fontSize=11;" value="Webhooks" vertex="1">
+      <mxGeometry height="45" width="45" x="760" y="760" as="geometry" />
+    </mxCell>
+    <mxCell id="38" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/app_services/App_Services.svg;fontFamily=Helvetica;fontSize=11;" value="Runner" vertex="1">
+      <mxGeometry height="45" width="45" x="660" y="850" as="geometry" />
+    </mxCell>
+    <mxCell id="39" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/app_services/App_Services.svg;fontFamily=Helvetica;fontSize=11;" value="Ingress Controller" vertex="1">
+      <mxGeometry height="45" width="45" x="760" y="850" as="geometry" />
+    </mxCell>
+    <mxCell id="40" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/app_services/App_Services.svg;fontFamily=Helvetica;fontSize=11;" value="Rest API" vertex="1">
+      <mxGeometry height="45" width="45" x="660" y="940" as="geometry" />
+    </mxCell>
+    <mxCell id="41" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/app_services/App_Services.svg;fontFamily=Helvetica;fontSize=11;" value="Cert-manager" vertex="1">
+      <mxGeometry height="45" width="45" x="760" y="940" as="geometry" />
+    </mxCell>
+    <mxCell id="42" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/identity/Managed_Identities.svg;fontFamily=Helvetica;fontSize=11;" value="Managed Identities" vertex="1">
+      <mxGeometry height="45" width="45" x="1200" y="890" as="geometry" />
+    </mxCell>
+    <mxCell id="43" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/management_governance/Azure_Arc.svg;fontFamily=Helvetica;fontSize=11;" value="GitOps" vertex="1">
+      <mxGeometry height="45" width="45" x="1200" y="790" as="geometry" />
+    </mxCell>
+    <mxCell id="44" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/networking/Load_Balancers.svg;fontFamily=Helvetica;fontSize=11;" value="Internal LB" vertex="1">
+      <mxGeometry height="45" width="45" x="1220" y="680" as="geometry" />
+    </mxCell>
+    <mxCell id="45" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/networking/Subnet.svg;fontFamily=Helvetica;fontSize=11;" value="Subnet" vertex="1">
+      <mxGeometry height="35" width="35" x="1350" y="580" as="geometry" />
+    </mxCell>
+    <mxCell id="46" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/networking/Application_Gateways.svg;fontFamily=Helvetica;fontSize=11;" value="App Gateway" vertex="1">
+      <mxGeometry height="50" width="50" x="1420" y="560" as="geometry" />
+    </mxCell>
+    <mxCell id="47" edge="1" parent="1" source="44" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontFamily=Helvetica;fontSize=10;" target="45" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="48" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/networking/Subnet.svg;fontFamily=Helvetica;fontSize=11;" value="Subnet" vertex="1">
+      <mxGeometry height="35" width="35" x="1350" y="700" as="geometry" />
+    </mxCell>
+    <mxCell id="49" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/integration/API_Management_Services.svg;fontFamily=Helvetica;fontSize=11;" value="API Management" vertex="1">
+      <mxGeometry height="50" width="50" x="1420" y="680" as="geometry" />
+    </mxCell>
+    <mxCell id="50" edge="1" parent="1" source="44" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontFamily=Helvetica;fontSize=10;" target="48" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="51" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/networking/Subnet.svg;fontFamily=Helvetica;fontSize=11;" value="Subnet" vertex="1">
+      <mxGeometry height="35" width="35" x="1350" y="820" as="geometry" />
+    </mxCell>
+    <mxCell id="52" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/compute/Virtual_Machine.svg;fontFamily=Helvetica;fontSize=11;" value="VMs" vertex="1">
+      <mxGeometry height="50" width="50" x="1420" y="800" as="geometry" />
+    </mxCell>
+    <mxCell id="53" edge="1" parent="1" source="44" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontFamily=Helvetica;fontSize=10;" target="51" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="54" parent="1" style="text;html=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=10;fontFamily=Helvetica;align=center;verticalAlign=middle;" value="Role Based Access Control" vertex="1">
+      <mxGeometry height="20" width="250" x="700" y="1140" as="geometry" />
+    </mxCell>
+    <mxCell id="55" parent="1" style="whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#4A90D9;opacity=100;fontFamily=Helvetica;fontSize=10;align=left;verticalAlign=top;" value="Private Endpoint Subnet" vertex="1">
+      <mxGeometry height="100" width="1100" x="540" y="1175" as="geometry" />
+    </mxCell>
+    <mxCell id="56" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/networking/Network_Security_Groups.svg;fontFamily=Helvetica;fontSize=11;" value="NSG" vertex="1">
+      <mxGeometry height="40" width="40" x="545" y="1195" as="geometry" />
+    </mxCell>
+    <mxCell id="57" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/networking/Private_Endpoint.svg;fontFamily=Helvetica;fontSize=11;" value="Private Endpoint" vertex="1">
+      <mxGeometry height="35" width="35" x="620" y="1195" as="geometry" />
+    </mxCell>
+    <mxCell id="58" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/networking/Private_Endpoint.svg;fontFamily=Helvetica;fontSize=11;" value="Private Endpoint" vertex="1">
+      <mxGeometry height="35" width="35" x="755" y="1195" as="geometry" />
+    </mxCell>
+    <mxCell id="59" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/networking/Private_Endpoint.svg;fontFamily=Helvetica;fontSize=11;" value="Private Endpoint" vertex="1">
+      <mxGeometry height="35" width="35" x="890" y="1195" as="geometry" />
+    </mxCell>
+    <mxCell id="60" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/networking/Private_Endpoint.svg;fontFamily=Helvetica;fontSize=11;" value="Private Endpoint" vertex="1">
+      <mxGeometry height="35" width="35" x="1025" y="1195" as="geometry" />
+    </mxCell>
+    <mxCell id="61" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/networking/Private_Endpoint.svg;fontFamily=Helvetica;fontSize=11;" value="Private Endpoint" vertex="1">
+      <mxGeometry height="35" width="35" x="1160" y="1195" as="geometry" />
+    </mxCell>
+    <mxCell id="62" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/networking/Private_Endpoint.svg;fontFamily=Helvetica;fontSize=11;" value="Private Endpoint" vertex="1">
+      <mxGeometry height="35" width="35" x="1295" y="1195" as="geometry" />
+    </mxCell>
+    <mxCell id="63" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/networking/Private_Endpoint.svg;fontFamily=Helvetica;fontSize=11;" value="Private Endpoint" vertex="1">
+      <mxGeometry height="35" width="35" x="1430" y="1195" as="geometry" />
+    </mxCell>
+    <mxCell id="64" parent="1" style="text;html=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=10;fontFamily=Helvetica;align=center;verticalAlign=middle;" value="Role Based Access Control" vertex="1">
+      <mxGeometry height="20" width="250" x="520" y="1295" as="geometry" />
+    </mxCell>
+    <mxCell id="65" parent="1" style="text;html=1;strokeColor=none;fillColor=none;fontSize=10;fontFamily=Helvetica;align=center;verticalAlign=middle;" value="SSL certs →" vertex="1">
+      <mxGeometry height="20" width="100" x="520" y="1340" as="geometry" />
+    </mxCell>
+    <mxCell id="66" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/security/Key_Vaults.svg;fontFamily=Helvetica;fontSize=11;" value="Key Vaults" vertex="1">
+      <mxGeometry height="50" width="50" x="640" y="1330" as="geometry" />
+    </mxCell>
+    <mxCell id="67" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/databases/SQL_Database.svg;fontFamily=Helvetica;fontSize=11;" value="SQL Database" vertex="1">
+      <mxGeometry height="50" width="50" x="800" y="1330" as="geometry" />
+    </mxCell>
+    <mxCell id="68" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/containers/Container_Registries.svg;fontFamily=Helvetica;fontSize=11;" value="Azure Container Registry" vertex="1">
+      <mxGeometry height="50" width="50" x="960" y="1330" as="geometry" />
+    </mxCell>
+    <mxCell id="69" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/devops/Application_Insights.svg;fontFamily=Helvetica;fontSize=11;" value="Application Insights" vertex="1">
+      <mxGeometry height="50" width="50" x="640" y="1430" as="geometry" />
+    </mxCell>
+    <mxCell id="70" parent="1" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;imageBackgroundColor=none;imageAspect=0;image=https://raw.githubusercontent.com/jgraph/drawio/dev/src/main/webapp/img/lib/azure2/general/Subscriptions.svg;fontFamily=Helvetica;fontSize=11;" value="Vendor subscription" vertex="1">
+      <mxGeometry height="40" width="40" x="1780" y="700" as="geometry" />
+    </mxCell>
+    <mxCell id="71" parent="1" style="whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CCCCCC;opacity=100;fontFamily=Helvetica;fontSize=11;align=left;verticalAlign=top;" value="" vertex="1">
+      <mxGeometry height="180" width="200" x="1760" y="740" as="geometry" />
+    </mxCell>
+    <mxCell id="72" parent="1" style="whiteSpace=wrap;html=1;fillColor=#0078D4;strokeColor=#0078D4;fontColor=#FFFFFF;fontSize=28;fontStyle=1;fontFamily=Helvetica;verticalAlign=middle;align=center;" value="Mg" vertex="1">
+      <mxGeometry height="90" width="120" x="1790" y="770" as="geometry" />
+    </mxCell>
+    <mxCell id="73" parent="1" style="text;html=1;strokeColor=none;fillColor=none;fontSize=11;fontFamily=Helvetica;align=center;verticalAlign=middle;" value="MongoDB Atlas" vertex="1">
+      <mxGeometry height="20" width="140" x="1780" y="870" as="geometry" />
+    </mxCell>
+    <mxCell id="74" edge="1" parent="1" source="55" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;fontFamily=Helvetica;fontSize=10;" target="71" value="">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+  </root>
+</mxGraphModel>
