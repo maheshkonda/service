@@ -1,0 +1,103 @@
+You are validating the current Print Asset architecture diagram against the actual
+implementation in this repository. Your goal is to identify what's in the code
+but missing from the diagram, what's in the diagram but not in the code, and
+what's mislabeled.
+
+REPO SCOPE
+- Bicep templates under: tto-sdt-infra/configs/bicep/print/
+  - base.yml, dev.yml, int.yml, qa.yml, qa2.yml, pe.yml
+- Cross-asset references: coreav (antivirus), coresecr (secret rotation), shd, ci
+- Source repos: tto-print-services, tto-sdt-infra
+- GH Actions: self-hosted runners in AKS builder node pool
+
+REFERENCE DIAGRAM (attached as XML or described below)
+The current diagram claims to show:
+- Subscription: US-AZSUB-AME-TAX-SDT-NPD
+- VNet: AZ-CUS-TAX-NPD-SDT-VNET-01 (10.202.5.0/24)
+- AKS cluster azuscshddevaks01 (Kubernetes v1.34.7, private, ns: print)
+- Builder node pool: Standard_D16ads_v5, GitHub self-hosted runners
+- System node pool: CoreDNS, kube-proxy, metrics-server, Azure Monitor Agent
+- User node pool: 10 microservices (cat, pack, crdn, dadpr, imprt, confr,
+  prul, pr, spil, tmpl) + Event Grid MI (eg01-id) + Secret Rotation (coresecr)
+- AKS add-ons: KV CSI, Container Insights, Managed Prometheus, Log Analytics,
+  DCE/DCR, Managed Grafana, Defender for Containers
+- 11 per-service Key Vaults + shared infra KV + cross-services KV
+- App Configuration: shd_appcs01 (shared) + print_appcs01 (asset)
+- Storage: shd_sa01 + print_sa01 + print_sa02 (AV scan + Malware ABAC)
+- Service Bus: shd_sbns01 (Shared, Event Grid MI has SB Data Sender role)
+- Event Grid: Topics + System Topics (eg01-id MI, Storage -> SB)
+- App Insights: print_appinsights01
+- Log Analytics: print_log_analytics01 (100 GB/day)
+- Defender for Storage + Malware Scan ABAC on print_sa02
+- CI App Config: ci_appcsglbci01 (stores MI client IDs)
+- RBAC: Entra ID RBAC, SG-US-print_appdev, 11 workload identity MIs
+  (cat, pack, crdn, dadpr, imprt, confr, prul, pr, spil, tmpl, eg01-id),
+  cross-asset MIs coreav, coresecr
+- Private endpoints: KV, Storage, Service Bus, SQL, App Config, dmstorage-pep
+- Helm deploy via GH Actions self-hosted runners
+
+TASK
+Walk through the repository and validate every claim above. Specifically:
+
+1. CONFIRM each item is present in bicep or config and matches the diagram:
+   - List the file and line range where each resource is defined
+   - Flag any name mismatch (e.g. KV name in bicep vs diagram)
+
+2. FIND resources in the code that are NOT on the diagram:
+   - Other Key Vaults, Storage Accounts, Service Bus namespaces, Event Grid
+     topics/system topics, App Config instances, Managed Identities
+   - Role assignments not shown
+   - Private DNS zones, Private Endpoints not shown
+   - Diagnostic settings, action groups, alerts
+   - Container Apps, Function Apps, Logic Apps, APIM instances
+   - Bastion, Firewall, VPN/ExpressRoute, Route Tables, NSGs
+   - Backup vaults, Recovery Services vaults
+   - Any peerings to other VNets
+
+3. FIND network/firewall/connectivity missing pieces:
+   - VNet peerings (to other hubs, spokes, on-prem)
+   - Private DNS zone groups linked to each PE
+   - Route tables associated to subnets
+   - NSG rules
+   - Service endpoints vs private endpoints
+   - egress restrictions, firewall integration
+
+4. FIND identity/RBAC gaps:
+   - Federated identity credentials per workload identity MI
+   - User-assigned vs system-assigned MIs
+   - Custom RBAC roles vs built-in
+   - Conditional Access policies referenced
+   - Access policies on Key Vaults (legacy model vs RBAC)
+
+5. FIND observability/security gaps:
+   - Action groups, alert rules, alert processing rules
+   - Workbook definitions
+   - Diagnostic settings on each resource
+   - Defender plans enabled at subscription level
+   - Defender for Storage on each storage account
+   - Customer-managed keys / encryption settings
+
+6. FIND pipeline/CI-CD gaps:
+   - Runner VMSS details (scaling, autoscaler profile, node taints/tolerations)
+   - OIDC trust between Entra ID and GH Actions
+   - Workload identity federated credentials per MI per env
+   - Secrets used by GH Actions (which KV, key designators)
+   - Branch protection / environment approval gates
+
+7. VALIDATE per-environment pattern:
+   - Confirm base.yml + dev/int/qa/qa2/pe.yml cover all 6 envs
+   - Confirm naming convention (azuscimadev*, azuscshddev*, etc.)
+   - Confirm PE subnet per env has the same set of private endpoints
+
+OUTPUT FORMAT
+Reply in5 sections:
+
+A) MATCHED (item from diagram -> file:line -> status: OK / mismatch detail)
+B) MISSING FROM DIAGRAM (resource in code -> file:line -> why it should be on it)
+D) MISSING FROM CODE (diagram item -> search: present / recommend: where to add)
+C) TOP10 GAPS ranked by severity (with one-line fix recommendation)
+E) SUGGESTED DIAGRAM ADDITIONS (named, placed, labeled)
+
+Be specific. Cite files and lines. If a resource is in code but not deployed(defined but commented out, gated by a parameter), say so.
+
+Do not edit any files. Read-only validation only.
